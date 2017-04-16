@@ -1,0 +1,96 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-input/paper-input-decorator.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-shadow/paper-shadow.html">
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="my-view1">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+      .send-message{
+        padding: 0 16px 6px 16px;
+      }
+    </style>
+
+
+      <div class="card">
+      <div class="all-messages" id="messages">
+<!--         <div id="message" class="card">{{messagesList}}</div> -->
+      </div>
+          <paper-input class="flex" label="Type message..." value="{{inputValue}}" on-keyup="sendMyMessage"></paper-input>
+          <paper-fab icon="send" id="sendButton" on-tap="sendMyMessage"></paper-fab>
+    </div>
+  </template>
+
+  <script>
+    class MyView1 extends Polymer.Element {
+      static get is() { return 'my-view1'; }
+
+      static get properties() {
+        return {
+          inputValue:{
+            type: String
+          },
+          messagesList:{
+            type: String,
+            value: '\n'
+          }
+        }
+      }
+
+      sendMyMessage(e) {
+        // the keyCode and charCode check for people hitting 'enter'
+        // the type check is if somebody clicks or taps it 
+        if(e.keyCode === 13 || e.charCode === 13 || e.type === "tap"){
+          console.log('sending message')
+          console.log(this.inputValue)
+          this.messagesList = this.messagesList + '\n' + this.inputValue + '\n'
+
+          //reset value to blank tho
+
+          var messagesList = document.getElementsByClassName("all-messages");
+          var shadow = document.createElement('p');
+          shadow.innerHTML = this.inputValue;
+          var messagesList = Polymer.dom(this.root).children[1].getElementsByClassName('all-messages')[0]
+          messagesList.appendChild(shadow)
+
+          var botResponse = document.createElement('p')
+          botResponse.style.cssText='text-align:right;color:blue;'
+          botResponse.innerHTML = "this is a where your bot response would go"
+          messagesList.appendChild(botResponse)
+
+          
+
+          this.inputValue = ""
+        }
+      }
+    }
+
+
+
+
+
+    window.customElements.define(MyView1.is, MyView1);
+  </script>
+</dom-module>
