@@ -16,6 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 
 <link rel="import" href="shared-styles.html">
@@ -37,6 +38,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <paper-input class="flex" label="Type message..." value="{{inputValue}}" on-keyup="sendMyMessage"></paper-input>
           <paper-fab icon="send" id="sendButton" on-tap="sendMyMessage"></paper-fab>
     </div>
+    <iron-ajax
+      id="sendInput"
+      method="POST"
+      contentType="application/json"
+      body='{{"user_input":{{inputValue}}}}'
+      url="/postRoute"
+      handles-as="json"
+      on-response="handleResponse"
+      ></iron-ajax>
   </template>
 
   <script>
@@ -47,6 +57,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return {
           inputValue:{
             type: String
+          },
+          responseValue:{
+            type:String
           }
         }
       }
@@ -58,21 +71,44 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           console.log('sending message')
           console.log(this.inputValue)
 
-
+          // this portion of code displays the users input in the div so we can see
+          // the history of the conversation
           var inputPar = document.createElement('p');
           inputPar.innerHTML = this.inputValue;
           var messagesList = Polymer.dom(this.root).children[1].getElementsByClassName('all-messages')[0]
           messagesList.appendChild(inputPar)
+          // this portion would be where you would send the user input to the backend
+          // its commented out because there is no backend set up
+          //this.$.sendInput.generateRequest()
 
+          // this is a mocked response since the backend is not set up in this project
           var botResponse = document.createElement('p')
           botResponse.style.cssText='text-align:right;color:blue;'
-          botResponse.innerHTML = "this is a where your bot response would go"
+          this.responseValue  = "this is a where your bot response would go"
+          botResponse.innerHTML = this.responseValue
           messagesList.appendChild(botResponse)
 
-          //reset value to blank tho
+          //reset value to blank after all of this
 
           this.inputValue = ""
         }
+      }
+      // this function will get hit when the backend replies to request with data
+      // in this function unpack the payload and set it to the responseValue property
+      // then place it in a paragraph element and append it to the messages list div
+      handleResponse(data){
+        console.log('handling response');
+        console.log(data.detail);
+        var botResponse = document.createElement('p')
+        botResponse.style.cssText='text-align:right;color:blue;'
+        // response would be something like data.detail...
+        // mess around with dev tools console in browser to get exact syntax
+        this.responseValue  = "this is a where your bot response would go"
+        botResponse.innerHTML = this.responseValue
+
+        var messagesList = Polymer.dom(this.root).children[1].getElementsByClassName('all-messages')[0]
+        messagesList.appendChild(botResponse)
+
       }
     }
 
