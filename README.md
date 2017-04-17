@@ -2,6 +2,13 @@
 Quick mockup of chat application using polymer 2.0
 
 Built from the starter kit
+
+To start:
+
+npm install -g polymer-cli
+polymer serve --open
+
+
 # Polymer App Toolbox - Starter Kit
 
 ++++++++++++++++++++++
