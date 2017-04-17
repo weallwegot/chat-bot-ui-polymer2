@@ -3,10 +3,24 @@ Quick mockup of chat application using polymer 2.0
 
 Built from the starter kit
 
-To start:
+##### Prerequisites
 
-npm install -g polymer-cli
-polymer serve --open
+First, install [Polymer CLI](https://github.com/Polymer/polymer-cli) using
+[npm](https://www.npmjs.com) (we assume you have pre-installed [node.js](https://nodejs.org)).
+
+    npm install -g polymer-cli
+
+##### Initialize project from template
+
+    mkdir my-chat-app
+    cd my-chat-app
+
+### Start the development server
+
+This command serves the app at `http://localhost:8080` and provides basic URL
+routing for the app:
+
+    polymer serve --open
 
 
 # Polymer App Toolbox - Starter Kit
