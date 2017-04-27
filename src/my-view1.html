@@ -41,8 +41,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <iron-ajax
       id="sendInput"
       method="POST"
-      contentType="application/json"
-      body='{{"user_input":{{inputValue}}}}'
+      content-type="application/json"
+      body='{"user_input":"{{inputValue}}"}'
       url="/postRoute"
       handles-as="json"
       on-response="handleResponse"
