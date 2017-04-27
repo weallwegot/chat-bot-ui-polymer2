@@ -3,6 +3,8 @@ Quick mockup of chat application using polymer 2.0
 
 Built from the starter kit
 
+![](http://g.recordit.co/1qmUTWgvCv.gif)
+
 ##### Prerequisites
 
 First, install [Polymer CLI](https://github.com/Polymer/polymer-cli) using
